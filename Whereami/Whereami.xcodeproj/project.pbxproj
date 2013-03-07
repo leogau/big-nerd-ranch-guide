@@ -20,6 +20,7 @@
 		59C38FEE16E8178E00083497 /* WhereamiViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 59C38FEC16E8178E00083497 /* WhereamiViewController.xib */; };
 		59C38FF516E8183800083497 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59C38FF416E8183800083497 /* CoreLocation.framework */; };
 		59C38FF716E8262600083497 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59C38FF616E8262600083497 /* MapKit.framework */; };
+		984627C316E8EE500063118C /* BNRMapPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 984627C216E8EE500063118C /* BNRMapPoint.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +42,8 @@
 		59C38FED16E8178E00083497 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/WhereamiViewController.xib; sourceTree = "<group>"; };
 		59C38FF416E8183800083497 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		59C38FF616E8262600083497 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		984627C116E8EE500063118C /* BNRMapPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BNRMapPoint.h; sourceTree = "<group>"; };
+		984627C216E8EE500063118C /* BNRMapPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BNRMapPoint.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +99,8 @@
 				59C38FE916E8178E00083497 /* WhereamiViewController.h */,
 				59C38FEA16E8178E00083497 /* WhereamiViewController.m */,
 				59C38FEC16E8178E00083497 /* WhereamiViewController.xib */,
+				984627C116E8EE500063118C /* BNRMapPoint.h */,
+				984627C216E8EE500063118C /* BNRMapPoint.m */,
 				59C38FD816E8178E00083497 /* Supporting Files */,
 			);
 			path = Whereami;
@@ -185,6 +190,7 @@
 				59C38FDE16E8178E00083497 /* main.m in Sources */,
 				59C38FE216E8178E00083497 /* WhereamiAppDelegate.m in Sources */,
 				59C38FEB16E8178E00083497 /* WhereamiViewController.m in Sources */,
+				984627C316E8EE500063118C /* BNRMapPoint.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -307,6 +313,7 @@
 				59C38FF316E8178E00083497 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

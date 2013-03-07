@@ -32,12 +32,6 @@
         // And we want it to be as accurate as possible
         // regardless of how much time/power it takes
         [self.locationManager setDesiredAccuracy:kCLLocationAccuracyBest];
-        
-        // Tell our manager to start looking for its location immediately
-        [self.locationManager startUpdatingLocation];
-        
-        // Start updateing heading
-        [self.locationManager startUpdatingHeading];
     }
     
     return self;
@@ -47,6 +41,13 @@
 {
     // Tell the location manager to stop sending us messages
     self.locationManager.delegate = nil;
+}
+
+#pragma mark - ViewController
+
+- (void)viewDidLoad
+{
+    self.worldView.showsUserLocation = YES;
 }
 
 #pragma mark - CLLocationManagerDelegate
@@ -66,6 +67,15 @@
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
 {
     NSLog(@"Could not find location: %@", error);
+}
+
+#pragma mark - MKMapViewDelegate
+
+- (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation
+{
+    CLLocationCoordinate2D loc = [userLocation coordinate];
+    MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(loc, 250, 250);
+    [self.worldView setRegion:region animated:YES];
 }
 
 @end
