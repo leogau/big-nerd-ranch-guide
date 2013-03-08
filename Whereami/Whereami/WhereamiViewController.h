@@ -10,6 +10,8 @@
 #import <CoreLocation/CoreLocation.h>
 #import <MapKit/MapKit.h>
 
-@interface WhereamiViewController : UIViewController <CLLocationManagerDelegate, MKMapViewDelegate>
+@interface WhereamiViewController : UIViewController <CLLocationManagerDelegate,
+                                                        MKMapViewDelegate,
+                                                        UITextFieldDelegate>
 
 @end

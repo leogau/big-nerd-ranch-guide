@@ -16,12 +16,13 @@
 
 @implementation BNRMapPoint 
 
-- (id)initWithCoordinate:(CLLocationCoordinate2D)c title:(NSString *)title
+- (id)initWithCoordinate:(CLLocationCoordinate2D)c title:(NSString *)title subtitle:(NSString *)subtitle
 {
     self = [super init];
     if (self) {
         self.coordinate = c;
         self.title = title;
+        self.subtitle = subtitle;
     }
     
     return self;
@@ -29,7 +30,7 @@
 
 - (id)init
 {
-    return [self initWithCoordinate:CLLocationCoordinate2DMake(43.07, -89.32) title:@"Hometown"];
+    return [self initWithCoordinate:CLLocationCoordinate2DMake(43.07, -89.32) title:@"Hometown" subtitle:@""];
 }
 
 @end
