@@ -44,13 +44,16 @@
     // The thickness of the line should be 10 points wide
     CGContextSetLineWidth(ctx, 10);
     
-    // The color of the line should be grey (r/g/b = 0.6, alpha = 1.0)
-    [self.circleColor setStroke];
-    
+    NSArray *colors = @[[UIColor redColor], [UIColor greenColor], [UIColor blueColor]];
     // Draw concentric circles from the outside in
     for (float currentRadius = maxRadius; currentRadius > 0; currentRadius -= 20) {
         // Add a path to the context
         CGContextAddArc(ctx, center.x, center.y, currentRadius, 0.0, M_PI * 2.0, YES);
+        
+        // Select a random color
+        int colorsIdx = (int)currentRadius % 3;
+        self.circleColor = colors[colorsIdx];
+        [self.circleColor setStroke];
         
         // Perform drawing instruction; removes path
         CGContextStrokePath(ctx);
@@ -86,6 +89,36 @@
     
     // Draw the string
     [text drawInRect:textRect withFont:font];
+    
+    [self drawCross:ctx];
+}
+
+#define CROSS_SIZE 10.0
+- (void)drawCross:(CGContextRef)currentCtx
+{
+    CGContextSaveGState(currentCtx);
+    
+    CGContextRef ctx = UIGraphicsGetCurrentContext();
+    
+    CGRect bounds = [self bounds];
+    CGPoint center;
+    center.x = bounds.origin.x + bounds.size.width / 2.0;
+    center.y = bounds.origin.y + bounds.size.height / 2.0;
+    
+    [[UIColor greenColor] setStroke];
+    CGContextSetLineWidth(ctx, 5);
+    
+    // Draw horizontal line
+    CGContextMoveToPoint(ctx, center.x - CROSS_SIZE, center.y);
+    CGContextAddLineToPoint(ctx, center.x + CROSS_SIZE, center.y);
+    
+    // Draw vertical line
+    CGContextMoveToPoint(ctx, center.x, center.y - CROSS_SIZE);
+    CGContextAddLineToPoint(ctx, center.x, center.y + CROSS_SIZE);
+    
+    CGContextStrokePath(ctx);
+    
+    CGContextRestoreGState(currentCtx);
 }
 
 #pragma mark - UIResponder

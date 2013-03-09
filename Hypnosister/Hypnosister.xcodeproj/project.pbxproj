@@ -17,6 +17,8 @@
 		984627E516E9B1AA0063118C /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 984627E416E9B1AA0063118C /* Default@2x.png */; };
 		984627E716E9B1AA0063118C /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 984627E616E9B1AA0063118C /* Default-568h@2x.png */; };
 		984627EF16E9B1EC0063118C /* HypnosisView.m in Sources */ = {isa = PBXBuildFile; fileRef = 984627EE16E9B1EC0063118C /* HypnosisView.m */; };
+		984627F216EBB3C40063118C /* BNRLogoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 984627F116EBB3C40063118C /* BNRLogoView.m */; };
+		984627F416EBB3ED0063118C /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 984627F316EBB3ED0063118C /* Icon@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +37,9 @@
 		984627E616E9B1AA0063118C /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		984627ED16E9B1EC0063118C /* HypnosisView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HypnosisView.h; sourceTree = "<group>"; };
 		984627EE16E9B1EC0063118C /* HypnosisView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HypnosisView.m; sourceTree = "<group>"; };
+		984627F016EBB3C40063118C /* BNRLogoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BNRLogoView.h; sourceTree = "<group>"; };
+		984627F116EBB3C40063118C /* BNRLogoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BNRLogoView.m; sourceTree = "<group>"; };
+		984627F316EBB3ED0063118C /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +90,8 @@
 				984627E016E9B1AA0063118C /* HypnosisterAppDelegate.m */,
 				984627ED16E9B1EC0063118C /* HypnosisView.h */,
 				984627EE16E9B1EC0063118C /* HypnosisView.m */,
+				984627F016EBB3C40063118C /* BNRLogoView.h */,
+				984627F116EBB3C40063118C /* BNRLogoView.m */,
 				984627D716E9B1AA0063118C /* Supporting Files */,
 			);
 			path = Hypnosister;
@@ -93,6 +100,7 @@
 		984627D716E9B1AA0063118C /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				984627F316EBB3ED0063118C /* Icon@2x.png */,
 				984627D816E9B1AA0063118C /* Hypnosister-Info.plist */,
 				984627D916E9B1AA0063118C /* InfoPlist.strings */,
 				984627DC16E9B1AA0063118C /* main.m */,
@@ -160,6 +168,7 @@
 				984627E316E9B1AA0063118C /* Default.png in Resources */,
 				984627E516E9B1AA0063118C /* Default@2x.png in Resources */,
 				984627E716E9B1AA0063118C /* Default-568h@2x.png in Resources */,
+				984627F416EBB3ED0063118C /* Icon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -173,6 +182,7 @@
 				984627DD16E9B1AA0063118C /* main.m in Sources */,
 				984627E116E9B1AA0063118C /* HypnosisterAppDelegate.m in Sources */,
 				984627EF16E9B1EC0063118C /* HypnosisView.m in Sources */,
+				984627F216EBB3C40063118C /* BNRLogoView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -287,6 +297,7 @@
 				984627EC16E9B1AA0063118C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
