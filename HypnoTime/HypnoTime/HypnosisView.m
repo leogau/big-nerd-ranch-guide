@@ -44,7 +44,7 @@
     // The thickness of the line should be 10 points wide
     CGContextSetLineWidth(ctx, 10);
     
-    NSArray *colors = @[[UIColor redColor], [UIColor greenColor], [UIColor blueColor]];
+//    NSArray *colors = @[[UIColor redColor], [UIColor greenColor], [UIColor blueColor]];
     // Draw concentric circles from the outside in
     for (float currentRadius = maxRadius; currentRadius > 0; currentRadius -= 20) {
         // Add a path to the context
