@@ -10,7 +10,28 @@
 #import "BNRItem.h"
 #import "BNRItemStore.h"
 
+@interface ItemsViewController ()
+@property (nonatomic) NSMutableArray *under50;
+@property (nonatomic) NSMutableArray *over50;
+@end
+
 @implementation ItemsViewController
+
+- (NSMutableArray *)under50
+{
+    if (!_under50) {
+        _under50 = [[NSMutableArray alloc] init];
+    }
+    return _under50;
+}
+
+- (NSMutableArray *)over50
+{
+    if (!_over50) {
+        _over50 = [[NSMutableArray alloc] init];
+    }
+    return _over50;
+}
 
 - (id)init
 {
@@ -18,7 +39,12 @@
     self = [super initWithStyle:UITableViewStyleGrouped];
     if (self) {
         for (int i = 0; i < 5; i++) {
-            [[BNRItemStore sharedStore] createItem];
+            BNRItem *item = [[BNRItemStore sharedStore] createItem];
+            if (item.valueInDollars < 50) {
+                [self.under50 addObject:item];
+            } else {
+                [self.over50 addObject:item];
+            }
         }
     }
     
@@ -30,11 +56,33 @@
     return [self init];
 }
 
+#pragma mark - UITableViewDelegate
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 2;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    CGFloat result = 60.0;
+    
+    if (indexPath.section == 1 && indexPath.row == [self.over50 count]) {
+        result = 44.0;
+    }
+    
+    return result;
+}
+
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [[[BNRItemStore sharedStore] allItems] count];
+    if (section) {
+        return [self.over50 count] + 1;
+    }
+    
+    return [self.under50 count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -48,11 +96,22 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"UITableViewCell"];
     }
     
-    // Set the text on the cell with the description of the item
-    // that is at the nth index of items, where n = row this cell
-    // will appear in on the tableview
-    BNRItem *p = [[BNRItemStore sharedStore] allItems][indexPath.row];
-    cell.textLabel.text = p.description;
+    BNRItem *p;
+    if (indexPath.section) {
+        if (indexPath.row < [self.over50 count]) {
+            p = self.over50[indexPath.row];
+        }
+    } else {
+        p = self.under50[indexPath.row];
+    }
+    
+    if (p) {
+        cell.textLabel.text = p.description;
+        cell.textLabel.font = [UIFont systemFontOfSize:20.0];
+    } else {
+        cell.textLabel.text = @"No More Items!";
+    }
+
     
     return cell;
 }
