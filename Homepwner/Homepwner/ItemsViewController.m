@@ -11,29 +11,24 @@
 #import "BNRItemStore.h"
 
 @interface ItemsViewController ()
-@property (strong, nonatomic, readonly) IBOutlet UIView *headerView;
 @end
 
 @implementation ItemsViewController
-@synthesize headerView = _headerView;
-
-- (UIView *)headerView
-{
-    // If we haven't loaded the headerView yet
-    if (!_headerView) {
-        // Load HeaderView.xib
-        [[NSBundle mainBundle] loadNibNamed:@"HeaderView" owner:self options:nil];
-    }
-    
-    return _headerView;
-}
 
 - (id)init
 {
     // Call the superclass's designated initializer
     self = [super initWithStyle:UITableViewStyleGrouped];
     if (self) {
-
+        self.navigationItem.title = @"Homepwner";
+        
+        // Create a new bar button item that will send
+        // addNewItem: to ItemsViewController
+        UIBarButtonItem *bbi = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addNewItem:)];
+        
+        // Set this bar button item as the right item in the navigationItem
+        self.navigationItem.rightBarButtonItem = bbi;
+        self.navigationItem.leftBarButtonItem = [self editButtonItem];
     }
     
     return self;
@@ -44,23 +39,13 @@
     return [self init];
 }
 
-#pragma mark - IBActions
-
-- (IBAction)toggleEditingMode:(UIButton *)sender
+- (void)viewWillAppear:(BOOL)animated
 {
-    // If we are currently in editing mode...
-    if ([self isEditing]) {
-        // Change the text of button to inform user of state
-        [sender setTitle:@"Edit" forState:UIControlStateNormal];
-        // Turn off editing mode
-        [self setEditing:NO animated:YES];
-    } else {
-        // Change text of button to inform user of state
-        [sender setTitle:@"Done" forState:UIControlStateNormal];
-        // Enter editing mode
-        [self setEditing:YES animated:YES];
-    }
+    [super viewWillAppear:animated];
+    [self.tableView reloadData];
 }
+
+#pragma mark - IBActions
 
 - (IBAction)addNewItem:(UIButton *)sender
 {
@@ -78,21 +63,23 @@
 
 #pragma mark - UITableViewDelegate
 
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
-{
-    return self.headerView;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-{
-    // The height of the header view should be determined from the
-    // height of the view in the XIB file
-    return self.headerView.bounds.size.height;
-}
-
 - (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return @"Remove";
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    DetailViewController *detailViewController = [[DetailViewController alloc] init];
+    
+    NSArray *items = [[BNRItemStore sharedStore] allItems];
+    BNRItem *selectedItem = items[indexPath.row];
+    
+    // Give detail view controller a pointer to the item object in row
+    detailViewController.item = selectedItem;
+    
+    // Push it onto the top of the navigation controller's stack
+    [self.navigationController pushViewController:detailViewController animated:YES];
 }
 
 #pragma mark - UITableViewDataSource
