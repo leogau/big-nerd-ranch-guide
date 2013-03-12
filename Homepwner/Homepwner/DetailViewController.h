@@ -11,8 +11,12 @@
 @class BNRItem;
 @interface DetailViewController : UIViewController <UINavigationControllerDelegate,
                                                     UIImagePickerControllerDelegate,
-                                                    UITextFieldDelegate>
+                                                    UITextFieldDelegate,
+                                                    UIPopoverControllerDelegate>
+
+- (id)initForNewItem:(BOOL)isNew;
 
 @property (nonatomic) BNRItem *item;
+@property (nonatomic, copy) void (^dismissBlock) (void);
 
 @end

@@ -9,6 +9,7 @@
 #import "DetailViewController.h"
 #import "BNRItem.h"
 #import "BNRImageStore.h"
+#import "BNRItemStore.h"
 #import "Crosshair.h"
 
 @interface DetailViewController ()
@@ -17,9 +18,12 @@
 @property (weak, nonatomic) IBOutlet UITextField *valueField;
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
+@property (nonatomic) UIPopoverController *imagePickerPopover;
 @end
 
 @implementation DetailViewController
+
+#pragma mark - Property
 
 - (void)setItem:(BNRItem *)item
 {
@@ -27,12 +31,43 @@
     self.navigationItem.title = _item.itemName;
 }
 
-#pragma mark - View lifecycle
+#pragma mark - UIViewController
+
+- (id)initForNewItem:(BOOL)isNew
+{
+    self = [super initWithNibName:@"DetailViewController" bundle:nil];
+    if (self) {
+        if (isNew) {
+            UIBarButtonItem *doneItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(save:)];
+            self.navigationItem.rightBarButtonItem = doneItem;
+            
+            UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancel:)];
+            self.navigationItem.leftBarButtonItem = cancelItem;
+        }
+    }
+    
+    return self;
+}
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    @throw [NSException exceptionWithName:@"Wrong initializer"
+                                   reason:@"Use initForNewItem:"
+                                 userInfo:nil];
+    return nil;
+}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor groupTableViewBackgroundColor];
+    
+    UIColor *color;
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+        color = [UIColor colorWithRed:0.875 green:0.88 blue:0.91 alpha:1];
+    } else {
+        color = [UIColor groupTableViewBackgroundColor];
+    }
+    self.view.backgroundColor = color;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -81,6 +116,13 @@
 
 - (IBAction)takePicture:(id)sender
 {
+    if ([self.imagePickerPopover isPopoverVisible]) {
+        // If the popover is already up, get rid of it
+        [self.imagePickerPopover dismissPopoverAnimated:YES];
+        self.imagePickerPopover = nil;
+        return;
+    }
+    
     UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
     
     // If our device has a camera, we want to take a picture, otherwise
@@ -96,7 +138,19 @@
     imagePicker.allowsEditing = YES;
     
     // Place image picker on the screen
-    [self presentViewController:imagePicker animated:YES completion:nil];
+    // Check for iPad device before instantiating the popover controller
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+        // Create a new popover controller that will display the imagePicker
+        self.imagePickerPopover = [[UIPopoverController alloc] initWithContentViewController:imagePicker];
+        self.imagePickerPopover.delegate = self;
+        
+        // Display the popover controller; sender is the camera bar button item
+        [self.imagePickerPopover presentPopoverFromBarButtonItem:sender
+                                        permittedArrowDirections:UIPopoverArrowDirectionAny
+                                                        animated:YES];
+    } else {
+        [self presentViewController:imagePicker animated:YES completion:nil];   
+    }
 }
 
 - (IBAction)backgroundTapped:(UIControl *)sender
@@ -112,6 +166,18 @@
     }
     
     self.imageView.image = nil;
+}
+
+- (void)save:(id)sender
+{
+    [self.presentingViewController dismissViewControllerAnimated:YES completion:self.dismissBlock];
+}
+
+- (void)cancel:(id)sender
+{
+    // If the user cancelled, then remove the BNRItem from the store
+    [[BNRItemStore sharedStore] removeItem:self.item];
+    [self.presentingViewController dismissViewControllerAnimated:YES completion:self.dismissBlock];
 }
 
 #pragma mark - UIImagePicker
@@ -145,9 +211,17 @@
     // Put that image onto the screen in our image view
     self.imageView.image = image;
     
-    // Take image picker off the screen -
-    // you must call this dismiss method
-    [self dismissViewControllerAnimated:YES completion:nil];
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+        // Take image picker off the screen -
+        // you must call this dismiss method
+        [self dismissViewControllerAnimated:YES completion:nil];
+    } else {
+        // If on the pad, the image picker is in the popover.
+        // Dismiss the popover
+        [self.imagePickerPopover dismissPopoverAnimated:YES];
+        self.imagePickerPopover = nil;
+    }
+
 }
 
 #pragma mark - UITextFieldDelegate
@@ -156,6 +230,13 @@
 {
     [textField resignFirstResponder];
     return YES;
+}
+
+#pragma mark - UIPopoverControllerDelegate
+
+- (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController
+{
+    self.imagePickerPopover = nil;
 }
 
 @end
