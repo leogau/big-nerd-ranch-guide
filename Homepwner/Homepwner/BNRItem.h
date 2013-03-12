@@ -14,6 +14,7 @@
 @property (nonatomic, copy) NSString *itemName;
 @property (nonatomic, copy) NSString *serialNumber;
 @property (nonatomic, readonly, strong) NSDate *dateCreated;
+@property (nonatomic, copy) NSString *imageKey;
 
 @property (nonatomic, strong) BNRItem *containedItem;
 @property (nonatomic, weak) BNRItem *container;

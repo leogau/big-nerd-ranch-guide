@@ -21,6 +21,8 @@
 		9846289B16EC18FA0063118C /* BNRItemStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 9846289A16EC18FA0063118C /* BNRItemStore.m */; };
 		987D9D0B16ED4CD3006E1010 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 987D9D0916ED4CD3006E1010 /* DetailViewController.m */; };
 		987D9D0C16ED4CD3006E1010 /* DetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 987D9D0A16ED4CD3006E1010 /* DetailViewController.xib */; };
+		987D9D0F16ED9BC7006E1010 /* BNRImageStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 987D9D0E16ED9BC7006E1010 /* BNRImageStore.m */; };
+		987D9D1216EEEEEE006E1010 /* Crosshair.m in Sources */ = {isa = PBXBuildFile; fileRef = 987D9D1116EEEEEE006E1010 /* Crosshair.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +48,10 @@
 		987D9D0816ED4CD3006E1010 /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
 		987D9D0916ED4CD3006E1010 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
 		987D9D0A16ED4CD3006E1010 /* DetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailViewController.xib; sourceTree = "<group>"; };
+		987D9D0D16ED9BC7006E1010 /* BNRImageStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BNRImageStore.h; sourceTree = "<group>"; };
+		987D9D0E16ED9BC7006E1010 /* BNRImageStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BNRImageStore.m; sourceTree = "<group>"; };
+		987D9D1016EEEEEE006E1010 /* Crosshair.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Crosshair.h; sourceTree = "<group>"; };
+		987D9D1116EEEEEE006E1010 /* Crosshair.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Crosshair.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -134,6 +140,8 @@
 				9846289516EC162B0063118C /* BNRItem.m */,
 				9846289916EC18FA0063118C /* BNRItemStore.h */,
 				9846289A16EC18FA0063118C /* BNRItemStore.m */,
+				987D9D0D16ED9BC7006E1010 /* BNRImageStore.h */,
+				987D9D0E16ED9BC7006E1010 /* BNRImageStore.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -142,6 +150,8 @@
 			isa = PBXGroup;
 			children = (
 				987D9D0A16ED4CD3006E1010 /* DetailViewController.xib */,
+				987D9D1016EEEEEE006E1010 /* Crosshair.h */,
+				987D9D1116EEEEEE006E1010 /* Crosshair.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -219,6 +229,8 @@
 				9846289616EC162B0063118C /* BNRItem.m in Sources */,
 				9846289B16EC18FA0063118C /* BNRItemStore.m in Sources */,
 				987D9D0B16ED4CD3006E1010 /* DetailViewController.m in Sources */,
+				987D9D0F16ED9BC7006E1010 /* BNRImageStore.m in Sources */,
+				987D9D1216EEEEEE006E1010 /* Crosshair.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
