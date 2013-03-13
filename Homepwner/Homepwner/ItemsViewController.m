@@ -9,6 +9,7 @@
 #import "ItemsViewController.h"
 #import "BNRItem.h"
 #import "BNRItemStore.h"
+#import "HomepwnerItemCell.h"
 
 @interface ItemsViewController ()
 @end
@@ -37,6 +38,19 @@
 - (id)initWithStyle:(UITableViewStyle)style
 {
     return [self init];
+}
+
+#pragma mark - UIViewController
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    // Load the NIB file
+    UINib *nib = [UINib nibWithNibName:@"HomepwnerItemCell" bundle:nil];
+    
+    // Register this NIB which contians the cell
+    [self.tableView registerNib:nib forCellReuseIdentifier:@"HomepwnerItemCell"];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -96,21 +110,16 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Check for a reusable cell first, use that if it exists
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"UITableViewCell"];
-    
-    // If there is no reusable cell of this type, create a new one
-    if (!cell) {
-        // Create an instance of UITableViewCell, with default appearance
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"UITableViewCell"];
-    }
-    
-    // Set the text on the cell with the description of the item
-    // that is at the nth index of items, where n = row this cell
-    // will appear in on the tableview
     BNRItem *p = [[BNRItemStore sharedStore] allItems][indexPath.row];
-    cell.textLabel.text = p.description;
     
+    // Get the new or recycled cell
+    HomepwnerItemCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"HomepwnerItemCell"];
+    
+    // Configure the cell with the BNRItem
+    cell.nameLabel.text = p.itemName;
+    cell.serialNumberLabel.text = p.serialNumber;
+    cell.valueLabel.text = [NSString stringWithFormat:@"%d", p.valueInDollars];
+
     return cell;
 }
 
