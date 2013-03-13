@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface BNRItem : NSObject
+@interface BNRItem : NSObject <NSCoding>
 
 @property (nonatomic) int valueInDollars;
 @property (nonatomic, copy) NSString *itemName;

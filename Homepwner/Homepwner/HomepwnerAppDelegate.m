@@ -8,6 +8,7 @@
 
 #import "HomepwnerAppDelegate.h"
 #import "ItemsViewController.h"
+#import "BNRItemStore.h"
 
 @implementation HomepwnerAppDelegate
 
@@ -31,5 +32,14 @@
     return YES;
 }
 
+- (void)applicationDidEnterBackground:(UIApplication *)application
+{
+    BOOL success = [[BNRItemStore sharedStore] saveChanges];
+    if (success) {
+        NSLog(@"Saved all of the BNRItems");
+    } else {
+        NSLog(@"Could not save any of the BNRItems");
+    }
+}
 
 @end
