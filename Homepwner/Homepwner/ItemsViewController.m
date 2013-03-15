@@ -10,6 +10,8 @@
 #import "BNRItem.h"
 #import "BNRItemStore.h"
 #import "HomepwnerItemCell.h"
+#import "BNRImageStore.h"
+#import "ImageViewController.h"
 
 @interface ItemsViewController ()
 @end
@@ -115,11 +117,21 @@
     // Get the new or recycled cell
     HomepwnerItemCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"HomepwnerItemCell"];
     
+    cell.controller = self;
+    cell.cellTableView = tableView;
+    
     // Configure the cell with the BNRItem
     cell.nameLabel.text = p.itemName;
     cell.serialNumberLabel.text = p.serialNumber;
     cell.valueLabel.text = [NSString stringWithFormat:@"%d", p.valueInDollars];
+    if (p.valueInDollars > 50) {
+        cell.valueLabel.textColor = [UIColor greenColor];
+    } else {
+        cell.valueLabel.textColor = [UIColor redColor];
+    }
 
+    cell.thumbnailView.image = p.thumbnail;
+    
     return cell;
 }
 
@@ -140,6 +152,44 @@
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath
 {
     [[BNRItemStore sharedStore] moveItemAtIndex:sourceIndexPath.row toIndex:destinationIndexPath.row];
+}
+
+#pragma mark - Instance
+
+- (void)showImage:(id)sender atIndexPath:(NSIndexPath *)indexPath
+{
+    NSLog(@"Going to show the image for %@", indexPath);
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+        // Get the item for the index path
+        BNRItem *item = [[BNRItemStore sharedStore] allItems][indexPath.row];
+        NSString *imageKey = item.imageKey;
+        
+        // If there is no image, we don't need to display anything
+        UIImage *img = [[BNRImageStore sharedStore] imageForKey:imageKey];
+        if (!img) return;
+        
+        // Make a rectangle that the frame of the button relative to
+        // our table view
+        CGRect rect = [self.view convertRect:[sender bounds] fromView:sender];
+        
+        // Create a new ImageViewController and set its image
+        ImageViewController *ivc = [[ImageViewController alloc] init];
+        ivc.image = img;
+        
+        // Present a 600x600 popover from the rect
+        self.imagePopover = [[UIPopoverController alloc] initWithContentViewController:ivc];
+        self.imagePopover.delegate = self;
+        self.imagePopover.popoverContentSize = CGSizeMake(600, 600);
+        [self.imagePopover presentPopoverFromRect:rect inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    }
+}
+
+#pragma mark - UIPopoverController
+
+- (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController
+{
+    [self.imagePopover dismissPopoverAnimated:YES];
+    self.imagePopover = nil;
 }
 
 @end

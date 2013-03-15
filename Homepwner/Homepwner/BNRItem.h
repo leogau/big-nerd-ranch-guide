@@ -16,6 +16,9 @@
 @property (nonatomic, readonly, strong) NSDate *dateCreated;
 @property (nonatomic, copy) NSString *imageKey;
 
+@property (nonatomic) UIImage *thumbnail;
+@property (nonatomic) NSData *thumbnailData;
+
 @property (nonatomic, strong) BNRItem *containedItem;
 @property (nonatomic, weak) BNRItem *container;
 
@@ -24,6 +27,6 @@
 - (id)initWithItemName: (NSString *)name
         valueInDollars: (int) value
           serialNumber: (NSString *)sNumber;
-
+- (void)setThumbnailDataFromImage:(UIImage *)image;
 
 @end
