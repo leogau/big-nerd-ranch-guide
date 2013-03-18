@@ -66,20 +66,20 @@
 - (IBAction)addNewItem:(UIButton *)sender
 {
     // Create a new BNRItem and add it to the store
-    BNRItem *newItem = [[BNRItemStore sharedStore] createItem];
+//    BNRItem *newItem = [[BNRItemStore sharedStore] createItem];
     
-    DetailViewController *detailViewController = [[DetailViewController alloc] initForNewItem:YES];
-    detailViewController.item = newItem;
-    detailViewController.dismissBlock = ^{
-        [self.tableView reloadData];
-    };
-    
-    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:detailViewController];
-    navController.modalPresentationStyle = UIModalPresentationFormSheet;
-    navController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-
-    
-    [self presentViewController:navController animated:YES completion:nil];
+//    DetailViewController *detailViewController = [[DetailViewController alloc] initForNewItem:YES];
+//    detailViewController.item = newItem;
+//    detailViewController.dismissBlock = ^{
+//        [self.tableView reloadData];
+//    };
+//    
+//    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:detailViewController];
+//    navController.modalPresentationStyle = UIModalPresentationFormSheet;
+//    navController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+//
+//    
+//    [self presentViewController:navController animated:YES completion:nil];
 }
 
 #pragma mark - UITableViewDelegate

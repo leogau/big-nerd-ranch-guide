@@ -20,13 +20,33 @@
 {
     self = [super init];
     if (self) {
-        NSString *filePath = [self itemArchivePath];
-        self.allItems = [NSKeyedUnarchiver unarchiveObjectWithFile:filePath];
+        // Read in Homepwner.xcdatamodeld
+        self.model = [NSManagedObjectModel mergedModelFromBundles:nil];
         
-        // If the array hadn't been saved previously, create a new empty one
-        if (!self.allItems) {
-            self.allItems = [[NSMutableArray alloc] init];
+        NSPersistentStoreCoordinator *psc = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:self.model];
+        
+        // Where does the SQLite file go?
+        NSString *filePath = [self itemArchivePath];
+        NSURL *storeURL = [NSURL fileURLWithPath:filePath];
+        
+        NSError *error = nil;
+        if (![psc addPersistentStoreWithType:NSSQLiteStoreType
+                               configuration:nil
+                                         URL:storeURL
+                                     options:nil
+                                       error:&error]) {
+            [NSException raise:@"Open failed"
+                        format:@"Reason: %@", [error localizedDescription]];
         }
+        
+        // Create the managed object context
+        self.context = [[NSManagedObjectContext alloc] init];
+        [self.context setPersistentStoreCoordinator:psc];
+        
+        // The managed object context can manage undo, but we don't need it
+        [self.context setUndoManager:nil];
+        
+        [self loadAllItems];
     }
     return self;
 }
@@ -52,13 +72,6 @@
 - (NSArray *)allItems
 {
     return _allItems;
-}
-
-- (BNRItem *)createItem
-{
-    BNRItem *item = [BNRItem randomItem];
-    [_allItems addObject:item];
-    return item;
 }
 
 - (void)removeItem:(BNRItem *)p
@@ -92,14 +105,37 @@
     // Get one and only document directory from that list
     NSString *documentDirectory = documentDirectories[0];
     
-    return [documentDirectory stringByAppendingPathComponent:@"items.archive"];
+    return [documentDirectory stringByAppendingPathComponent:@"store.data"];
 }
 
 - (BOOL)saveChanges
 {
-    // returns success or failure
-    NSString *filePath = [self itemArchivePath];
-    return [NSKeyedArchiver archiveRootObject:self.allItems toFile:filePath];
+    NSError *err = nil;
+    BOOL successful = [self.context save:&err];
+    if (!successful) {
+        NSLog(@"Error saving: %@", [err localizedDescription]);
+    }
+    return successful;
+}
+
+- (void)loadAllItems
+{
+    if (!self.allItems) {
+        NSFetchRequest *request = [[NSFetchRequest alloc] init];
+        NSEntityDescription *e = [self.model entitiesByName][@"BNRItem"];
+        [request setEntity:e];
+        
+        NSSortDescriptor *sd = [NSSortDescriptor sortDescriptorWithKey:@"orderingValue" ascending:YES];
+        [request setSortDescriptors:@[sd]];
+         
+         NSError *error;
+         NSArray *result = [self.context executeFetchRequest:request error:&error];
+         if (!result) {
+             [NSException raise:@"Fetch failed" format:@"Reason: %@", [error localizedDescription]];
+         }
+         
+         self.allItems = [[NSMutableArray alloc] initWithArray:result];
+    }
 }
 
 @end

@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <CoreData/CoreData.h>
 
 @class BNRItem;
 @interface BNRItemStore : NSObject
@@ -14,11 +15,15 @@
 + (BNRItemStore *)sharedStore;
 
 - (NSArray *)allItems;
-- (BNRItem *)createItem;
 - (void)removeItem:(BNRItem *)p;
 - (void)moveItemAtIndex:(int)from
                 toIndex:(int)to;
 - (NSString *)itemArchivePath;
 - (BOOL)saveChanges;
+- (void)loadAllItems;
+
+@property (nonatomic, strong) NSMutableArray *allAssetTypes;
+@property (nonatomic, strong) NSManagedObjectContext *context;
+@property (nonatomic, strong) NSManagedObjectModel *model;
 
 @end
