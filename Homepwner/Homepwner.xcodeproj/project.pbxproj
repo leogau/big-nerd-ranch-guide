@@ -19,7 +19,6 @@
 		9846289316EC14E70063118C /* ItemsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9846289216EC14E70063118C /* ItemsViewController.m */; };
 		9846289B16EC18FA0063118C /* BNRItemStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 9846289A16EC18FA0063118C /* BNRItemStore.m */; };
 		987D9D0B16ED4CD3006E1010 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 987D9D0916ED4CD3006E1010 /* DetailViewController.m */; };
-		987D9D0C16ED4CD3006E1010 /* DetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 987D9D0A16ED4CD3006E1010 /* DetailViewController.xib */; };
 		987D9D0F16ED9BC7006E1010 /* BNRImageStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 987D9D0E16ED9BC7006E1010 /* BNRImageStore.m */; };
 		987D9D1216EEEEEE006E1010 /* Crosshair.m in Sources */ = {isa = PBXBuildFile; fileRef = 987D9D1116EEEEEE006E1010 /* Crosshair.m */; };
 		987D9D1516F041EC006E1010 /* HomepwnerItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 987D9D1416F041EC006E1010 /* HomepwnerItemCell.m */; };
@@ -29,6 +28,8 @@
 		987D9D1E16F2E5CC006E1010 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 987D9D1D16F2E5CC006E1010 /* CoreData.framework */; };
 		987D9D2116F2E617006E1010 /* Homepwner.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 987D9D1F16F2E617006E1010 /* Homepwner.xcdatamodeld */; };
 		987D9D2416F2E8B3006E1010 /* BNRItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 987D9D2316F2E8B3006E1010 /* BNRItem.m */; };
+		987D9D2716F82A71006E1010 /* AssetTypePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 987D9D2616F82A71006E1010 /* AssetTypePicker.m */; };
+		987D9D2E16F83678006E1010 /* DetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 987D9D2C16F83678006E1010 /* DetailViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,7 +52,6 @@
 		9846289A16EC18FA0063118C /* BNRItemStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BNRItemStore.m; sourceTree = "<group>"; };
 		987D9D0816ED4CD3006E1010 /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
 		987D9D0916ED4CD3006E1010 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
-		987D9D0A16ED4CD3006E1010 /* DetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailViewController.xib; sourceTree = "<group>"; };
 		987D9D0D16ED9BC7006E1010 /* BNRImageStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BNRImageStore.h; sourceTree = "<group>"; };
 		987D9D0E16ED9BC7006E1010 /* BNRImageStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BNRImageStore.m; sourceTree = "<group>"; };
 		987D9D1016EEEEEE006E1010 /* Crosshair.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Crosshair.h; sourceTree = "<group>"; };
@@ -66,6 +66,9 @@
 		987D9D2016F2E617006E1010 /* Homepwner.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Homepwner.xcdatamodel; sourceTree = "<group>"; };
 		987D9D2216F2E8B3006E1010 /* BNRItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BNRItem.h; sourceTree = "<group>"; };
 		987D9D2316F2E8B3006E1010 /* BNRItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BNRItem.m; sourceTree = "<group>"; };
+		987D9D2516F82A71006E1010 /* AssetTypePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AssetTypePicker.h; sourceTree = "<group>"; };
+		987D9D2616F82A71006E1010 /* AssetTypePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AssetTypePicker.m; sourceTree = "<group>"; };
+		987D9D2D16F83678006E1010 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/DetailViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -148,6 +151,8 @@
 				987D9D1816F2E046006E1010 /* ImageViewController.h */,
 				987D9D1916F2E046006E1010 /* ImageViewController.m */,
 				987D9D1A16F2E046006E1010 /* ImageViewController.xib */,
+				987D9D2516F82A71006E1010 /* AssetTypePicker.h */,
+				987D9D2616F82A71006E1010 /* AssetTypePicker.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -169,10 +174,10 @@
 		98C3E59316ED2C4100CD13CB /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				987D9D0A16ED4CD3006E1010 /* DetailViewController.xib */,
 				987D9D1016EEEEEE006E1010 /* Crosshair.h */,
 				987D9D1116EEEEEE006E1010 /* Crosshair.m */,
 				987D9D1316F041EC006E1010 /* HomepwnerItemCell.h */,
+				987D9D2C16F83678006E1010 /* DetailViewController.xib */,
 				987D9D1416F041EC006E1010 /* HomepwnerItemCell.m */,
 				987D9D1616F0421C006E1010 /* HomepwnerItemCell.xib */,
 			);
@@ -215,6 +220,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				es,
 			);
 			mainGroup = 9846286816EC11780063118C;
 			productRefGroup = 9846287216EC11780063118C /* Products */;
@@ -235,9 +241,9 @@
 				9846288716EC11780063118C /* Default.png in Resources */,
 				9846288916EC11780063118C /* Default@2x.png in Resources */,
 				9846288B16EC11780063118C /* Default-568h@2x.png in Resources */,
-				987D9D0C16ED4CD3006E1010 /* DetailViewController.xib in Resources */,
 				987D9D1716F0421C006E1010 /* HomepwnerItemCell.xib in Resources */,
 				987D9D1C16F2E046006E1010 /* ImageViewController.xib in Resources */,
+				987D9D2E16F83678006E1010 /* DetailViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -259,6 +265,7 @@
 				987D9D1B16F2E046006E1010 /* ImageViewController.m in Sources */,
 				987D9D2116F2E617006E1010 /* Homepwner.xcdatamodeld in Sources */,
 				987D9D2416F2E8B3006E1010 /* BNRItem.m in Sources */,
+				987D9D2716F82A71006E1010 /* AssetTypePicker.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -271,6 +278,14 @@
 				9846287E16EC11780063118C /* en */,
 			);
 			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		987D9D2C16F83678006E1010 /* DetailViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				987D9D2D16F83678006E1010 /* en */,
+			);
+			name = DetailViewController.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

@@ -11,6 +11,7 @@
 #import "BNRImageStore.h"
 #import "BNRItemStore.h"
 #import "Crosshair.h"
+#import "AssetTypePicker.h"
 
 @interface DetailViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *nameField;
@@ -18,6 +19,8 @@
 @property (weak, nonatomic) IBOutlet UITextField *valueField;
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
+@property (weak, nonatomic) IBOutlet UIButton *assetTypeButton;
+
 @property (nonatomic) UIPopoverController *imagePickerPopover;
 @end
 
@@ -98,6 +101,11 @@
         // Clear the imageView
         self.imageView.image = nil;
     }
+    
+    NSString *typeLabel = [self.item.assetType valueForKey:@"label"];
+    if (!typeLabel) typeLabel = @"None";
+    
+    [self.assetTypeButton setTitle:[NSString stringWithFormat:@"Type: %@", typeLabel] forState:UIControlStateNormal];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -167,6 +175,16 @@
     }
     
     self.imageView.image = nil;
+}
+
+- (IBAction)showAssetTypePicker:(UIButton *)sender
+{
+    [self.view endEditing:YES];
+    
+    AssetTypePicker *assetTypePicker = [[AssetTypePicker alloc] init];
+    assetTypePicker.item = self.item;
+    
+    [self.navigationController pushViewController:assetTypePicker animated:YES];
 }
 
 - (void)save:(id)sender

@@ -21,6 +21,8 @@
 - (NSString *)itemArchivePath;
 - (BOOL)saveChanges;
 - (void)loadAllItems;
+- (BNRItem *)createItem;
+- (NSArray *)allAssetTypes;
 
 @property (nonatomic, strong) NSMutableArray *allAssetTypes;
 @property (nonatomic, strong) NSManagedObjectContext *context;

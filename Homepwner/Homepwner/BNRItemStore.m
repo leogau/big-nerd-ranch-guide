@@ -78,7 +78,7 @@
 {
     NSString *key = p.imageKey;
     [[BNRImageStore sharedStore] deleteImageForKey:key];
-    
+    [self.context deleteObject:p];
     [_allItems removeObjectIdenticalTo:p];
 }
 
@@ -92,10 +92,34 @@
     BNRItem *p = _allItems[from];
     
     // Remove p from array
-    [_allItems removeObjectAtIndex:from];
+//    [_allItems removeObjectAtIndex:from];
     
     // Insert p in array at new location
     _allItems[to] = p;
+    
+    // Compute a new orderValue for the object that was moved
+    double lowerBound = 0.0;
+    
+    // Is there an object before it in the array?
+    if (to > 0) {
+        lowerBound = [_allItems[to-1] orderingValue];
+    } else {
+        lowerBound = [_allItems[1] orderingValue] - 2.0;
+    }
+    
+    double upperBound = 0.0;
+    
+    // Is there an object after it in the array?
+    if (to < [self.allItems count] - 1) {
+        upperBound = [_allItems[to+1] orderingValue];
+    } else {
+        upperBound = [_allItems[to-1] orderingValue] + 2.0;
+    }
+    
+    double newOrderValue = (lowerBound + upperBound) / 2.0;
+    
+    NSLog(@"moving to order %f", newOrderValue);
+    [p setOrderingValue:newOrderValue];
 }
 
 - (NSString *)itemArchivePath
@@ -136,6 +160,58 @@
          
          self.allItems = [[NSMutableArray alloc] initWithArray:result];
     }
+}
+
+- (BNRItem *)createItem
+{
+    double order;
+    if ([self.allItems count] == 0) {
+        order = 1.0;
+    } else {
+        order = [[self.allItems lastObject] orderingValue] + 1.0;
+    }
+    NSLog(@"Adding after %d items, order = %.2f", [self.allItems count], order);
+    
+    BNRItem *p = [NSEntityDescription insertNewObjectForEntityForName:@"BNRItem" inManagedObjectContext:self.context];
+    [p setOrderingValue:order];
+    
+    [_allItems addObject:p];
+    
+    return p;
+}
+
+- (NSArray *)allAssetTypes
+{
+    if (!_allAssetTypes) {
+        NSFetchRequest *request = [[NSFetchRequest alloc] init];
+        NSEntityDescription *e = [self.model entitiesByName][@"BNRAssetType"];
+        [request setEntity:e];
+        
+        NSError *error;
+        NSArray *result = [self.context executeFetchRequest:request error:&error];
+        if (!result) {
+            [NSException raise:@"Fetch failed" format:@"Reason: %@", [error localizedDescription]];
+        }
+        _allAssetTypes = [result mutableCopy];
+    }
+    
+    // Is this the first time the program is being run?
+    if ([_allAssetTypes count] == 0) {
+        NSManagedObject *type;
+        type = [NSEntityDescription insertNewObjectForEntityForName:@"BNRAssetType" inManagedObjectContext:self.context];
+        [type setValue:@"Furniture" forKey:@"label"];
+        [_allAssetTypes addObject:type];
+        
+        type = [NSEntityDescription insertNewObjectForEntityForName:@"BNRAssetType" inManagedObjectContext:self.context];
+        [type setValue:@"Jewelry" forKey:@"label"];
+        [_allAssetTypes addObject:type];
+        
+        type = [NSEntityDescription insertNewObjectForEntityForName:@"BNRAssetType" inManagedObjectContext:self.context];
+        [type setValue:@"Electronics" forKey:@"label"];
+        [_allAssetTypes addObject:type];
+    }
+    
+    return _allAssetTypes;
 }
 
 @end
