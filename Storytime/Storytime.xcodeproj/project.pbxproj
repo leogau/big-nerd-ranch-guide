@@ -1,0 +1,298 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		594AF1F516F7EF9100638101 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 594AF1F416F7EF9100638101 /* UIKit.framework */; };
+		594AF1F716F7EF9100638101 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 594AF1F616F7EF9100638101 /* Foundation.framework */; };
+		594AF1F916F7EF9100638101 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 594AF1F816F7EF9100638101 /* CoreGraphics.framework */; };
+		594AF1FF16F7EF9100638101 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 594AF1FD16F7EF9100638101 /* InfoPlist.strings */; };
+		594AF20116F7EF9100638101 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 594AF20016F7EF9100638101 /* main.m */; };
+		594AF20516F7EF9100638101 /* LEOAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 594AF20416F7EF9100638101 /* LEOAppDelegate.m */; };
+		594AF20716F7EF9100638101 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 594AF20616F7EF9100638101 /* Default.png */; };
+		594AF20916F7EF9100638101 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 594AF20816F7EF9100638101 /* Default@2x.png */; };
+		594AF20B16F7EF9100638101 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 594AF20A16F7EF9100638101 /* Default-568h@2x.png */; };
+		594AF21216F7EFAE00638101 /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 594AF21116F7EFAE00638101 /* Storyboard.storyboard */; };
+		594AF21516F7F2E800638101 /* ModalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 594AF21416F7F2E800638101 /* ModalViewController.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		594AF1F116F7EF9100638101 /* Storytime.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Storytime.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		594AF1F416F7EF9100638101 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		594AF1F616F7EF9100638101 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		594AF1F816F7EF9100638101 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		594AF1FC16F7EF9100638101 /* Storytime-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Storytime-Info.plist"; sourceTree = "<group>"; };
+		594AF1FE16F7EF9100638101 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		594AF20016F7EF9100638101 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		594AF20216F7EF9100638101 /* Storytime-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Storytime-Prefix.pch"; sourceTree = "<group>"; };
+		594AF20316F7EF9100638101 /* LEOAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LEOAppDelegate.h; sourceTree = "<group>"; };
+		594AF20416F7EF9100638101 /* LEOAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LEOAppDelegate.m; sourceTree = "<group>"; };
+		594AF20616F7EF9100638101 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		594AF20816F7EF9100638101 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		594AF20A16F7EF9100638101 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		594AF21116F7EFAE00638101 /* Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
+		594AF21316F7F2E800638101 /* ModalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModalViewController.h; sourceTree = "<group>"; };
+		594AF21416F7F2E800638101 /* ModalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModalViewController.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		594AF1EE16F7EF9100638101 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				594AF1F516F7EF9100638101 /* UIKit.framework in Frameworks */,
+				594AF1F716F7EF9100638101 /* Foundation.framework in Frameworks */,
+				594AF1F916F7EF9100638101 /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		594AF1E816F7EF9100638101 = {
+			isa = PBXGroup;
+			children = (
+				594AF1FA16F7EF9100638101 /* Storytime */,
+				594AF1F316F7EF9100638101 /* Frameworks */,
+				594AF1F216F7EF9100638101 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		594AF1F216F7EF9100638101 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				594AF1F116F7EF9100638101 /* Storytime.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		594AF1F316F7EF9100638101 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				594AF1F416F7EF9100638101 /* UIKit.framework */,
+				594AF1F616F7EF9100638101 /* Foundation.framework */,
+				594AF1F816F7EF9100638101 /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		594AF1FA16F7EF9100638101 /* Storytime */ = {
+			isa = PBXGroup;
+			children = (
+				594AF20316F7EF9100638101 /* LEOAppDelegate.h */,
+				594AF20416F7EF9100638101 /* LEOAppDelegate.m */,
+				594AF21116F7EFAE00638101 /* Storyboard.storyboard */,
+				594AF21316F7F2E800638101 /* ModalViewController.h */,
+				594AF21416F7F2E800638101 /* ModalViewController.m */,
+				594AF1FB16F7EF9100638101 /* Supporting Files */,
+			);
+			path = Storytime;
+			sourceTree = "<group>";
+		};
+		594AF1FB16F7EF9100638101 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				594AF1FC16F7EF9100638101 /* Storytime-Info.plist */,
+				594AF1FD16F7EF9100638101 /* InfoPlist.strings */,
+				594AF20016F7EF9100638101 /* main.m */,
+				594AF20216F7EF9100638101 /* Storytime-Prefix.pch */,
+				594AF20616F7EF9100638101 /* Default.png */,
+				594AF20816F7EF9100638101 /* Default@2x.png */,
+				594AF20A16F7EF9100638101 /* Default-568h@2x.png */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		594AF1F016F7EF9100638101 /* Storytime */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 594AF20E16F7EF9100638101 /* Build configuration list for PBXNativeTarget "Storytime" */;
+			buildPhases = (
+				594AF1ED16F7EF9100638101 /* Sources */,
+				594AF1EE16F7EF9100638101 /* Frameworks */,
+				594AF1EF16F7EF9100638101 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Storytime;
+			productName = Storytime;
+			productReference = 594AF1F116F7EF9100638101 /* Storytime.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		594AF1E916F7EF9100638101 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = LEO;
+				LastUpgradeCheck = 0460;
+				ORGANIZATIONNAME = "Leo Gau";
+			};
+			buildConfigurationList = 594AF1EC16F7EF9100638101 /* Build configuration list for PBXProject "Storytime" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 594AF1E816F7EF9100638101;
+			productRefGroup = 594AF1F216F7EF9100638101 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				594AF1F016F7EF9100638101 /* Storytime */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		594AF1EF16F7EF9100638101 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				594AF1FF16F7EF9100638101 /* InfoPlist.strings in Resources */,
+				594AF20716F7EF9100638101 /* Default.png in Resources */,
+				594AF20916F7EF9100638101 /* Default@2x.png in Resources */,
+				594AF20B16F7EF9100638101 /* Default-568h@2x.png in Resources */,
+				594AF21216F7EFAE00638101 /* Storyboard.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		594AF1ED16F7EF9100638101 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				594AF20116F7EF9100638101 /* main.m in Sources */,
+				594AF20516F7EF9100638101 /* LEOAppDelegate.m in Sources */,
+				594AF21516F7F2E800638101 /* ModalViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		594AF1FD16F7EF9100638101 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				594AF1FE16F7EF9100638101 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		594AF20C16F7EF9100638101 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		594AF20D16F7EF9100638101 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		594AF20F16F7EF9100638101 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Storytime/Storytime-Prefix.pch";
+				INFOPLIST_FILE = "Storytime/Storytime-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		594AF21016F7EF9100638101 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Storytime/Storytime-Prefix.pch";
+				INFOPLIST_FILE = "Storytime/Storytime-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		594AF1EC16F7EF9100638101 /* Build configuration list for PBXProject "Storytime" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				594AF20C16F7EF9100638101 /* Debug */,
+				594AF20D16F7EF9100638101 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		594AF20E16F7EF9100638101 /* Build configuration list for PBXNativeTarget "Storytime" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				594AF20F16F7EF9100638101 /* Debug */,
+				594AF21016F7EF9100638101 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 594AF1E916F7EF9100638101 /* Project object */;
+}
