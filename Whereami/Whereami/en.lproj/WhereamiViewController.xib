@@ -107,7 +107,6 @@
 						<string key="NSFrame">{{20, 485}, {281, 44}}</string>
 						<reference key="NSSuperview" ref="774585933"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -207,6 +206,14 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">mapTypeControl</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="238486380"/>
+					</object>
+					<int key="connectionID">42</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">delegate</string>
 						<reference key="source" ref="48576577"/>
 						<reference key="destination" ref="372490531"/>
@@ -223,12 +230,12 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
-						<string key="label">mapTypeControl:</string>
+						<string key="label">changeMapType:</string>
 						<reference key="source" ref="238486380"/>
 						<reference key="destination" ref="372490531"/>
 						<int key="IBEventType">13</int>
 					</object>
-					<int key="connectionID">40</int>
+					<int key="connectionID">43</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -563,7 +570,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">41</int>
+			<int key="maxID">43</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -579,19 +586,20 @@
 					<string key="className">WhereamiViewController</string>
 					<string key="superclassName">UIViewController</string>
 					<object class="NSMutableDictionary" key="actions">
-						<string key="NS.key.0">mapTypeControl:</string>
+						<string key="NS.key.0">changeMapType:</string>
 						<string key="NS.object.0">UISegmentedControl</string>
 					</object>
 					<object class="NSMutableDictionary" key="actionInfosByName">
-						<string key="NS.key.0">mapTypeControl:</string>
+						<string key="NS.key.0">changeMapType:</string>
 						<object class="IBActionInfo" key="NS.object.0">
-							<string key="name">mapTypeControl:</string>
+							<string key="name">changeMapType:</string>
 							<string key="candidateClassName">UISegmentedControl</string>
 						</object>
 					</object>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="activityIndicator">UIActivityIndicatorView</string>
 						<string key="locationTitleField">UITextField</string>
+						<string key="mapTypeControl">UISegmentedControl</string>
 						<string key="worldView">MKMapView</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
@@ -602,6 +610,10 @@
 						<object class="IBToOneOutletInfo" key="locationTitleField">
 							<string key="name">locationTitleField</string>
 							<string key="candidateClassName">UITextField</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="mapTypeControl">
+							<string key="name">mapTypeControl</string>
+							<string key="candidateClassName">UISegmentedControl</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="worldView">
 							<string key="name">worldView</string>

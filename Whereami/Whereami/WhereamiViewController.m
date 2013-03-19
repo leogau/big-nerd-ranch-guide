@@ -15,10 +15,19 @@
 @property (weak, nonatomic) IBOutlet MKMapView *worldView;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (weak, nonatomic) IBOutlet UITextField *locationTitleField;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *mapTypeControl;
 
 @end
 
+NSString * const WhereamiMapTypePrefKey = @"WhereamiMapTypePrefKey";
+
 @implementation WhereamiViewController
+
++ (void)initialize
+{
+    NSDictionary *defaults = @{WhereamiMapTypePrefKey: @1};
+    [[NSUserDefaults standardUserDefaults] registerDefaults:defaults];
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -49,12 +58,23 @@
 - (void)viewDidLoad
 {
     self.worldView.showsUserLocation = YES;
+    
+    NSInteger mapTypeValue = [[NSUserDefaults standardUserDefaults] integerForKey:WhereamiMapTypePrefKey];
+    
+    // Update the UI
+    self.mapTypeControl.selectedSegmentIndex = mapTypeValue;
+    
+    // Update the map
+    [self changeMapType:self.mapTypeControl];
 }
 
 #pragma mark - IBActions
 
-- (IBAction)mapTypeControl:(UISegmentedControl *)sender
+- (IBAction)changeMapType:(UISegmentedControl *)sender
 {
+    [[NSUserDefaults standardUserDefaults] setInteger:sender.selectedSegmentIndex
+                                               forKey:WhereamiMapTypePrefKey];
+    
     NSInteger selected = sender.selectedSegmentIndex;
     switch (selected) {
         case 0:
