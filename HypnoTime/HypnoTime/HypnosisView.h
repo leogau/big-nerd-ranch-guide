@@ -8,7 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
+@class CALayer;
+
 @interface HypnosisView : UIView
+
+@property (nonatomic, strong) CALayer *boxLayer;
 
 @property (nonatomic) UIColor *circleColor;
 
