@@ -8,6 +8,7 @@
 
 #import "NerdfeedAppDelegate.h"
 #import "ListViewController.h"
+#import "WebViewController.h"
 
 @implementation NerdfeedAppDelegate
 
@@ -16,6 +17,9 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     ListViewController *lvc = [[ListViewController alloc] init];
+    WebViewController *wvc = [[WebViewController alloc] init];
+    lvc.webViewController = wvc;
+    
     UINavigationController *navcon = [[UINavigationController alloc] initWithRootViewController:lvc];
     self.window.rootViewController = navcon;
     

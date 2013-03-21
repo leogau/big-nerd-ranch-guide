@@ -8,6 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
-@interface ListViewController : UITableViewController
+@class WebViewController;
+
+@interface ListViewController : UITableViewController <NSURLConnectionDataDelegate, NSXMLParserDelegate>
+
+@property (nonatomic, strong) WebViewController *webViewController;
 
 @end
