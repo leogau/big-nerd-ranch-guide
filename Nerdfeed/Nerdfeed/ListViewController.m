@@ -10,6 +10,7 @@
 #import "RSSChannel.h"
 #import "RSSItem.h"
 #import "WebViewController.h"
+#import "ChannelViewController.h"
 
 @interface ListViewController ()
 @property (nonatomic, strong) NSURLConnection *connection;
@@ -23,6 +24,9 @@
 {
     self = [super initWithStyle:style];
     if (self) {
+        UIBarButtonItem *bbi = [[UIBarButtonItem alloc] initWithTitle:@"Info" style:UIBarButtonItemStyleBordered target:self action:@selector(showInfo:)];
+        self.navigationItem.rightBarButtonItem = bbi;;
+        
         [self fetchEntries];
     }
     
@@ -78,22 +82,24 @@
 {
     // Push the web view controller onto the navigation stack -
     // this implicitly create the web view controller's view the first time through
-    [self.navigationController pushViewController:self.webViewController animated:YES];
+    if (![self splitViewController]) {
+        [self.navigationController pushViewController:self.webViewController animated:YES];
+    } else {
+        // We have to create a new navigation controller, as the old
+        // one was only retained by the split view controller and
+        // is now gone
+        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:self.webViewController];
+        NSArray *vcs = @[self.navigationController, nav];
+        self.splitViewController.viewControllers = vcs;
+        
+        // Make the detail view controller the delegate of the split view controller
+        self.splitViewController.delegate = self.webViewController;
+    }
 
     // Grab the selected item
     RSSItem *entry = self.channel.items[indexPath.row];
     
-    // Construct a URL with the link string of the item
-    NSURL *url = [NSURL URLWithString:entry.link];
-    
-    // Construct a request object with that URL
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    
-    // Load the request into the web view
-    [self.webViewController.webView loadRequest:request];
-    
-    // Set the title of the web view controller's navigation item
-    self.webViewController.navigationItem.title = entry.title;
+    [self.webViewController listViewController:self handleObject:entry];
 }
 
 #pragma mark - NSURLConnectionDataDelegate
@@ -166,6 +172,41 @@
         // Set the parser's delegate to the channel object
         parser.delegate = self.channel;
     }
+}
+
+#pragma mark - IBAction
+
+- (void)showInfo:(id)sender
+{
+    // Create the channel view controller
+    ChannelViewController *channelViewController = [[ChannelViewController alloc] initWithStyle:UITableViewStyleGrouped];
+    
+    if ([self splitViewController]) {
+        UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:channelViewController];
+        
+        // Create the array with our nav controller and this new
+        // VC's nav controller
+        NSArray *vcs = @[self.navigationController, nvc];
+        
+        // Grab a pointer to the split view controller
+        // and reset its view controllers array
+        [[self splitViewController] setViewControllers:vcs];
+        
+        // Make detail view controller the delegate of the split view controller
+        [[self splitViewController] setDelegate:channelViewController];
+        
+        // If a row has been selected, deselect it so that a row
+        // is not selected when viewing the info
+        NSIndexPath *selectedRow = [self.tableView indexPathForSelectedRow];
+        if (selectedRow) {
+            [self.tableView deselectRowAtIndexPath:selectedRow animated:YES];
+        }
+    } else {
+        [self.navigationController pushViewController:channelViewController animated:YES];
+    }
+    
+    // Give the VC the channel object through the protocol message
+    [channelViewController listViewController:self handleObject:self.channel];
 }
 
 @end

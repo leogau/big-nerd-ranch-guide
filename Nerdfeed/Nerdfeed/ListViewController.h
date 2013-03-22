@@ -15,3 +15,10 @@
 @property (nonatomic, strong) WebViewController *webViewController;
 
 @end
+
+@protocol ListViewControllerDelegate <NSObject>
+
+- (void)listViewController:(ListViewController *)listViewController
+              handleObject:(id)object;
+
+@end
