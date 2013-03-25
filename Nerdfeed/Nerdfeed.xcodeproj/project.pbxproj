@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9806BDE516FF9C210038F062 /* BNRConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 9806BDE416FF9C210038F062 /* BNRConnection.m */; };
 		982826DE16F98A4D00EA32FC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 982826DD16F98A4D00EA32FC /* UIKit.framework */; };
 		982826E016F98A4D00EA32FC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 982826DF16F98A4D00EA32FC /* Foundation.framework */; };
 		982826E216F98A4D00EA32FC /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 982826E116F98A4D00EA32FC /* CoreGraphics.framework */; };
@@ -21,9 +22,13 @@
 		9828270216FAD90000EA32FC /* RSSItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 9828270116FAD90000EA32FC /* RSSItem.m */; };
 		9828270516FADD4000EA32FC /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9828270416FADD4000EA32FC /* WebViewController.m */; };
 		9828270816FC238800EA32FC /* ChannelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9828270716FC238800EA32FC /* ChannelViewController.m */; };
+		9828270B16FF87BC00EA32FC /* BNRFeedStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 9828270A16FF87BC00EA32FC /* BNRFeedStore.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9806BDE316FF9C210038F062 /* BNRConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BNRConnection.h; sourceTree = "<group>"; };
+		9806BDE416FF9C210038F062 /* BNRConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BNRConnection.m; sourceTree = "<group>"; };
+		9806BDE716FFAFFA0038F062 /* JSONSerializable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONSerializable.h; sourceTree = "<group>"; };
 		982826DA16F98A4D00EA32FC /* Nerdfeed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Nerdfeed.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		982826DD16F98A4D00EA32FC /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		982826DF16F98A4D00EA32FC /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -47,6 +52,8 @@
 		9828270416FADD4000EA32FC /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
 		9828270616FC238800EA32FC /* ChannelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChannelViewController.h; sourceTree = "<group>"; };
 		9828270716FC238800EA32FC /* ChannelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChannelViewController.m; sourceTree = "<group>"; };
+		9828270916FF87BC00EA32FC /* BNRFeedStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BNRFeedStore.h; sourceTree = "<group>"; };
+		9828270A16FF87BC00EA32FC /* BNRFeedStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BNRFeedStore.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,18 +100,9 @@
 		982826E316F98A4D00EA32FC /* Nerdfeed */ = {
 			isa = PBXGroup;
 			children = (
-				982826EC16F98A4D00EA32FC /* NerdfeedAppDelegate.h */,
-				982826ED16F98A4D00EA32FC /* NerdfeedAppDelegate.m */,
-				982826FA16F98A6F00EA32FC /* ListViewController.h */,
-				982826FB16F98A6F00EA32FC /* ListViewController.m */,
-				982826FD16FAD58000EA32FC /* RSSChannel.h */,
-				982826FE16FAD58000EA32FC /* RSSChannel.m */,
-				9828270016FAD90000EA32FC /* RSSItem.h */,
-				9828270116FAD90000EA32FC /* RSSItem.m */,
-				9828270316FADD4000EA32FC /* WebViewController.h */,
-				9828270416FADD4000EA32FC /* WebViewController.m */,
-				9828270616FC238800EA32FC /* ChannelViewController.h */,
-				9828270716FC238800EA32FC /* ChannelViewController.m */,
+				9828270D16FF87CC00EA32FC /* Controllers */,
+				9828270E16FF87D500EA32FC /* Models */,
+				9828270C16FF87C100EA32FC /* Store */,
 				982826E416F98A4D00EA32FC /* Supporting Files */,
 			);
 			path = Nerdfeed;
@@ -122,6 +120,44 @@
 				982826F316F98A4D00EA32FC /* Default-568h@2x.png */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		9828270C16FF87C100EA32FC /* Store */ = {
+			isa = PBXGroup;
+			children = (
+				9828270916FF87BC00EA32FC /* BNRFeedStore.h */,
+				9828270A16FF87BC00EA32FC /* BNRFeedStore.m */,
+				9806BDE316FF9C210038F062 /* BNRConnection.h */,
+				9806BDE416FF9C210038F062 /* BNRConnection.m */,
+			);
+			name = Store;
+			sourceTree = "<group>";
+		};
+		9828270D16FF87CC00EA32FC /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				982826EC16F98A4D00EA32FC /* NerdfeedAppDelegate.h */,
+				982826ED16F98A4D00EA32FC /* NerdfeedAppDelegate.m */,
+				982826FA16F98A6F00EA32FC /* ListViewController.h */,
+				982826FB16F98A6F00EA32FC /* ListViewController.m */,
+				9828270316FADD4000EA32FC /* WebViewController.h */,
+				9828270416FADD4000EA32FC /* WebViewController.m */,
+				9828270616FC238800EA32FC /* ChannelViewController.h */,
+				9828270716FC238800EA32FC /* ChannelViewController.m */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		9828270E16FF87D500EA32FC /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				982826FD16FAD58000EA32FC /* RSSChannel.h */,
+				982826FE16FAD58000EA32FC /* RSSChannel.m */,
+				9828270016FAD90000EA32FC /* RSSItem.h */,
+				9828270116FAD90000EA32FC /* RSSItem.m */,
+				9806BDE716FFAFFA0038F062 /* JSONSerializable.h */,
+			);
+			name = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -197,6 +233,8 @@
 				9828270216FAD90000EA32FC /* RSSItem.m in Sources */,
 				9828270516FADD4000EA32FC /* WebViewController.m in Sources */,
 				9828270816FC238800EA32FC /* ChannelViewController.m in Sources */,
+				9828270B16FF87BC00EA32FC /* BNRFeedStore.m in Sources */,
+				9806BDE516FF9C210038F062 /* BNRConnection.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

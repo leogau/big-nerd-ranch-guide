@@ -8,9 +8,14 @@
 
 #import <Foundation/Foundation.h>
 
+typedef enum {
+    ListViewControllerRSSTypeBNR,
+    ListViewControllerRSSTypeApple
+} ListViewControllerRSSType;
+
 @class WebViewController;
 
-@interface ListViewController : UITableViewController <NSURLConnectionDataDelegate, NSXMLParserDelegate>
+@interface ListViewController : UITableViewController
 
 @property (nonatomic, strong) WebViewController *webViewController;
 

@@ -11,11 +11,11 @@
 #import "RSSItem.h"
 #import "WebViewController.h"
 #import "ChannelViewController.h"
+#import "BNRFeedStore.h"
 
 @interface ListViewController ()
-@property (nonatomic, strong) NSURLConnection *connection;
-@property (nonatomic, strong) NSMutableData *xmlData;
 @property (nonatomic, strong) RSSChannel *channel;
+@property (nonatomic) ListViewControllerRSSType rssType;
 @end
 
 @implementation ListViewController
@@ -25,7 +25,16 @@
     self = [super initWithStyle:style];
     if (self) {
         UIBarButtonItem *bbi = [[UIBarButtonItem alloc] initWithTitle:@"Info" style:UIBarButtonItemStyleBordered target:self action:@selector(showInfo:)];
-        self.navigationItem.rightBarButtonItem = bbi;;
+        self.navigationItem.rightBarButtonItem = bbi;
+        
+        UISegmentedControl *rssTypeControl = [[UISegmentedControl alloc] initWithItems:@[@"BNR", @"Apple"]];
+        rssTypeControl.selectedSegmentIndex = 0;
+        rssTypeControl.segmentedControlStyle = UISegmentedControlStyleBar;
+        [rssTypeControl addTarget:self
+                           action:@selector(changeType:)
+                 forControlEvents:UIControlEventValueChanged];
+        self.navigationItem.titleView = rssTypeControl;
+                                            
         
         [self fetchEntries];
     }
@@ -37,25 +46,78 @@
 
 - (void)fetchEntries
 {
-    // Create a new data container for the stuff that comes back from the service
-    self.xmlData = [[NSMutableData alloc] init];
+    // Get a hold of the segmented control that is currently in the title view
+    UIView *currentTitleView = self.navigationItem.titleView;
     
-    // Construct a URL that will ask the service for what you want
-    // note we can concatenate literal strings together on multiple
-    // lines in this way - this results in a single NSString instance
-    NSURL *url = [NSURL URLWithString:@"http://forums.bignerdranch.com/smartfeed.php?"
-                  @"limit=1_DAY&sort_by=standard&feed_type=RSS2.0&feed_style=COMPACT"];
+    // Create an activity indicator and start it spinning in the nav bar
+    UIActivityIndicatorView *aiView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+    self.navigationItem.titleView = aiView;
+    [aiView startAnimating];
     
-    // For Apple's Hot News feed, replace the line above with
-    // NSURL *url = [NSURL URLWithString:@"http://www.apple.com/pr/feeds/pr.rss"];
+    void (^completionBlock)(RSSChannel *obj, NSError *err) = ^(RSSChannel *obj, NSError *err) {
+        NSLog(@"Completion block called");
+        // When the request completes - success or failure - replace the
+        // activity indicator with the segmented control
+        self.navigationItem.titleView = currentTitleView;
+        
+        // When the request completes, this block will be called
+        if (!err) {
+            // If everything went ok, grab the channel object, and reload the table
+            self.channel = obj;
+            [self.tableView reloadData];
+        } else {
+            // If things went bad, show an alert view
+            UIAlertView *av = [[UIAlertView alloc] initWithTitle:@"Error"
+                                                         message:[err localizedDescription]
+                                                        delegate: nil
+                                               cancelButtonTitle:@"OK"
+                                               otherButtonTitles:nil];
+            [av show];
+        }
+    };
     
-    // Put that URL into a NSURLRequest
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    // Initiate the request...
+    if (self.rssType == ListViewControllerRSSTypeBNR) {
+        self.channel = [[BNRFeedStore sharedStore] fetchRSSFeedWithCompletion:^(RSSChannel *obj, NSError *error) {
+            // Replace the activity indicator
+            self.navigationItem.titleView = currentTitleView;
+            if (!error) {
+                // How many items are there currently?
+                int currentItemCount = [self.channel.items count];
+                
+                // Set our channel to the merged one
+                self.channel = obj;
+                
+                // How many items are there now?
+                int newItemCount = [self.channel.items count];
+                
+                // For each new item, insert a new row. The data source
+                // will take care of the rest.
+                int itemDelta = newItemCount - currentItemCount;
+                if (itemDelta > 0) {
+                    NSMutableArray *rows = [NSMutableArray array];
+                    for (int i = 0; i < itemDelta; i++) {
+                        NSIndexPath *ip = [NSIndexPath indexPathForRow:i inSection:0];
+                        [rows addObject:ip];
+                    }
+                    [self.tableView insertRowsAtIndexPaths:rows withRowAnimation:UITableViewRowAnimationTop];
+                }
+            }
+        }];
+        
+        [self.tableView reloadData];
+    } else if (self.rssType == ListViewControllerRSSTypeApple) {
+        [[BNRFeedStore sharedStore] fetchTopSongs:10 withCompletion:completionBlock];
+    }
     
-    // Create a connection that will exchange this request for data from the URL
-    self.connection = [[NSURLConnection alloc] initWithRequest:request
-                                                      delegate:self
-                                              startImmediately:YES];
+    NSLog(@"Executing code at the end of fetchEntries");
+
+}
+
+- (void)changeType:(UISegmentedControl *)sender
+{
+    self.rssType = sender.selectedSegmentIndex;
+    [self fetchEntries];
 }
 
 #pragma mark - UITableViewDataSource
@@ -100,78 +162,6 @@
     RSSItem *entry = self.channel.items[indexPath.row];
     
     [self.webViewController listViewController:self handleObject:entry];
-}
-
-#pragma mark - NSURLConnectionDataDelegate
-
-// This method will be called serveral times as the data arrives
-- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
-{
-    // Add the incoming chunk of data to the container we are keeping
-    // The data always comes in the correct order
-    [self.xmlData appendData:data];
-}
-
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection
-{
-    // Create the parser object with the data received from the web service
-    NSXMLParser *parser = [[NSXMLParser alloc] initWithData:self.xmlData];
-    
-    // Give it a delegate
-    parser.delegate = self;
-    
-    // Tell it to start parsing - the document will be parsed and
-    // the delegate of NSXMLParser will get all of its delegate messages
-    // sent to it before this line finishes execution - it is blocking
-    [parser parse];
-    
-    // Get rid of the XML data as we no longer need it
-    self.xmlData = nil;
-    
-    // Get rid of the connection, no longer need it
-    self.connection = nil;
-    
-    // Reload the table. For now, the table will be empty.
-    [self.tableView reloadData];
-    
-    NSLog(@"%@\n %@\n %@\n", self.channel, self.channel.title, self.channel.infoString);
-}
-
-- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
-{
-    // Release the connection object, we're done with it
-    self.connection = nil;
-    
-    // Release the xmlData object, we're done with it
-    self.xmlData = nil;
-    
-    // Grab the description of the error object passed to us
-    NSString *errorString = [NSString stringWithFormat:@"Fetch failed: %@", [error localizedDescription]];
-    
-    // Create and show an alert view with this error displayed
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error"
-                                                        message:errorString
-                                                       delegate:nil
-                                              cancelButtonTitle:@"OK"
-                                              otherButtonTitles:nil];
-    [alertView show];
-}
-
-#pragma mark - NSXMLParserDelegate
-
-- (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict
-{
-    NSLog(@"%@ found a %@ element", self, elementName);
-    if ([elementName isEqualToString:@"channel"]) {
-        // If the parser saw a channel, create new instance
-        self.channel = [[RSSChannel alloc] init];
-        
-        // Give the channel object a point back to ourselves for later
-        self.channel.parentParserDelegate = self;
-        
-        // Set the parser's delegate to the channel object
-        parser.delegate = self.channel;
-    }
 }
 
 #pragma mark - IBAction

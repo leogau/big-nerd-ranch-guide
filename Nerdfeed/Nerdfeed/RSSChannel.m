@@ -37,7 +37,8 @@
     } else if ([elementName isEqualToString:@"description"]) {
         self.currentString = [[NSMutableString alloc] init];
         self.infoString = self.currentString;
-    } else if ([elementName isEqualToString:@"item"]) {
+    } else if ([elementName isEqualToString:@"item"] ||
+               [elementName isEqualToString:@"entry"]) {
         // When we find an item, create an instance of RSSItem
         RSSItem *entry = [[RSSItem alloc] init];
         
@@ -109,6 +110,75 @@
             }
         }
     }
+}
+
+- (void)addItemsFromChannel:(RSSChannel *)otherChannel
+{
+    for (RSSItem *item in otherChannel.items) {
+        // If self's items does not contain this item, add it
+        if (![self.items containsObject:item]) {
+            [self.items addObject:item];
+        }
+    }
+    
+    // Sort the array of items by publication date
+    [self.items sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        return [[obj2 publicationDate] compare:[obj1 publicationDate]];
+    }];
+}
+
+#pragma mark - JSONSerializable
+
+- (void)readFromJSONDictionary:(NSDictionary *)d
+{
+    // The top-level object contains a "feed" object, which is the channel
+    NSDictionary *feed = d[@"feed"];
+    
+    // The feed has a title property, make this the title of our channel
+    self.title = feed[@"title"];
+    
+    // The feed also has an array of entries, for each one, make a new RSSItem
+    NSArray *entries = feed[@"entry"];
+    for (NSDictionary *entry in entries) {
+        RSSItem *item = [[RSSItem alloc] init];
+        
+        // Pass the entry dictionary to the item so it can grab its ivars
+        [item readFromJSONDictionary:entry];
+        [self.items addObject:item];
+    }
+}
+
+#pragma mark - NSCoding
+
+- (void)encodeWithCoder:(NSCoder *)aCoder
+{
+    [aCoder encodeObject:self.items forKey:@"items"];
+    [aCoder encodeObject:self.title forKey:@"title"];
+    [aCoder encodeObject:self.infoString forKey:@"infoString"];
+}
+
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+    self = [super init];
+    if (self) {
+        _items = [aDecoder decodeObjectForKey:@"items"];
+        self.infoString = [aDecoder decodeObjectForKey:@"infoString"];
+        self.title = [aDecoder decodeObjectForKey:@"title"];
+    }
+    return self;
+}
+
+#pragma mark - NSCopying
+
+- (id)copyWithZone:(NSZone *)zone
+{
+    RSSChannel *c = [[[self class] alloc] init];
+    
+    c.title = self.title;
+    c.infoString = self.infoString;
+    c->_items = [self.items mutableCopy];
+    
+    return c;
 }
 
 @end

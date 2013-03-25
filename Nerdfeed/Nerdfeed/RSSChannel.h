@@ -7,13 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "JSONSerializable.h"
 
-@interface RSSChannel : NSObject <NSXMLParserDelegate>
+@interface RSSChannel : NSObject <NSXMLParserDelegate, JSONSerializable, NSCoding, NSCopying>
 
 @property (nonatomic, weak) id parentParserDelegate;
-
 @property (nonatomic, strong) NSString *title;
 @property (nonatomic, strong) NSString *infoString;
 @property (nonatomic, readonly, strong) NSMutableArray *items;
+
+- (void)addItemsFromChannel:(RSSChannel *)otherChannel;
 
 @end
