@@ -135,6 +135,13 @@
     }
     RSSItem *item = self.channel.items[indexPath.row];
     cell.textLabel.text = item.title;
+    
+    if ([[BNRFeedStore sharedStore] hasItemBeenRead:item]) {
+        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+    } else {
+        cell.accessoryType = UITableViewCellAccessoryNone;
+    }
+    
     return cell;
 }
 
@@ -160,6 +167,11 @@
 
     // Grab the selected item
     RSSItem *entry = self.channel.items[indexPath.row];
+    
+    [[BNRFeedStore sharedStore] markItemAsRead:entry];
+    
+    // Immediately add a checkmark to this row
+    [[self.tableView cellForRowAtIndexPath:indexPath] setAccessoryType:UITableViewCellAccessoryCheckmark];
     
     [self.webViewController listViewController:self handleObject:entry];
 }

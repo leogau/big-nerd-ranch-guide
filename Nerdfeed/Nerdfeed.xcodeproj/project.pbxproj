@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		9806BDE516FF9C210038F062 /* BNRConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 9806BDE416FF9C210038F062 /* BNRConnection.m */; };
+		9806BDE9170004970038F062 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9806BDE8170004970038F062 /* CoreData.framework */; };
+		9806BDEC170004AE0038F062 /* Nerdfeed.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9806BDEA170004AE0038F062 /* Nerdfeed.xcdatamodeld */; };
 		982826DE16F98A4D00EA32FC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 982826DD16F98A4D00EA32FC /* UIKit.framework */; };
 		982826E016F98A4D00EA32FC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 982826DF16F98A4D00EA32FC /* Foundation.framework */; };
 		982826E216F98A4D00EA32FC /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 982826E116F98A4D00EA32FC /* CoreGraphics.framework */; };
@@ -29,6 +31,8 @@
 		9806BDE316FF9C210038F062 /* BNRConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BNRConnection.h; sourceTree = "<group>"; };
 		9806BDE416FF9C210038F062 /* BNRConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BNRConnection.m; sourceTree = "<group>"; };
 		9806BDE716FFAFFA0038F062 /* JSONSerializable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONSerializable.h; sourceTree = "<group>"; };
+		9806BDE8170004970038F062 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		9806BDEB170004AE0038F062 /* Nerdfeed.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Nerdfeed.xcdatamodel; sourceTree = "<group>"; };
 		982826DA16F98A4D00EA32FC /* Nerdfeed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Nerdfeed.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		982826DD16F98A4D00EA32FC /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		982826DF16F98A4D00EA32FC /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -61,6 +65,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9806BDE9170004970038F062 /* CoreData.framework in Frameworks */,
 				982826DE16F98A4D00EA32FC /* UIKit.framework in Frameworks */,
 				982826E016F98A4D00EA32FC /* Foundation.framework in Frameworks */,
 				982826E216F98A4D00EA32FC /* CoreGraphics.framework in Frameworks */,
@@ -73,6 +78,7 @@
 		982826D116F98A4D00EA32FC = {
 			isa = PBXGroup;
 			children = (
+				9806BDE8170004970038F062 /* CoreData.framework */,
 				982826E316F98A4D00EA32FC /* Nerdfeed */,
 				982826DC16F98A4D00EA32FC /* Frameworks */,
 				982826DB16F98A4D00EA32FC /* Products */,
@@ -156,6 +162,7 @@
 				9828270016FAD90000EA32FC /* RSSItem.h */,
 				9828270116FAD90000EA32FC /* RSSItem.m */,
 				9806BDE716FFAFFA0038F062 /* JSONSerializable.h */,
+				9806BDEA170004AE0038F062 /* Nerdfeed.xcdatamodeld */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -235,6 +242,7 @@
 				9828270816FC238800EA32FC /* ChannelViewController.m in Sources */,
 				9828270B16FF87BC00EA32FC /* BNRFeedStore.m in Sources */,
 				9806BDE516FF9C210038F062 /* BNRConnection.m in Sources */,
+				9806BDEC170004AE0038F062 /* Nerdfeed.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -356,6 +364,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		9806BDEA170004AE0038F062 /* Nerdfeed.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				9806BDEB170004AE0038F062 /* Nerdfeed.xcdatamodel */,
+			);
+			currentVersion = 9806BDEB170004AE0038F062 /* Nerdfeed.xcdatamodel */;
+			path = Nerdfeed.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 982826D216F98A4D00EA32FC /* Project object */;
 }

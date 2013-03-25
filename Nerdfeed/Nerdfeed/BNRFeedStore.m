@@ -9,9 +9,40 @@
 #import "BNRFeedStore.h"
 #import "RSSChannel.h"
 #import "BNRConnection.h"
+#import "RSSItem.h"
 
 @implementation BNRFeedStore
 @synthesize topSongsCacheDate = _topSongsCacheDate;
+
+- (id)init
+{
+    self = [super init];
+    if (self) {
+        self.model = [NSManagedObjectModel mergedModelFromBundles:nil];
+        
+        NSPersistentStoreCoordinator *psc = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:self.model];
+        
+        NSError *error = nil;
+        NSString *dbPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+        
+        dbPath = [dbPath stringByAppendingPathComponent:@"feed.db"];
+        NSURL *dbURL = [NSURL fileURLWithPath:dbPath];
+        
+        if (![psc addPersistentStoreWithType:NSSQLiteStoreType
+                               configuration:nil
+                                         URL:dbURL
+                                     options:nil
+                                       error:&error]) {
+            [NSException raise:@"Open failed"
+                        format:@"Reason: %@", [error localizedDescription]];
+        }
+        
+        self.context = [[NSManagedObjectContext alloc] init];
+        [self.context setPersistentStoreCoordinator:psc];
+        [self.context setUndoManager:nil];
+    }
+    return self;
+}
 
 #pragma mark - Properties
 
@@ -140,6 +171,41 @@
     };
     
     [connection start];
+}
+
+- (void)markItemAsRead:(RSSItem *)item
+{
+    // If the item is already in Core Data, no need for duplicates
+    if ([self hasItemBeenRead:item]) {
+        return;
+    }
+    
+    // Create a new Link object and insert it into the context
+    NSManagedObject *obj = [NSEntityDescription insertNewObjectForEntityForName:@"Link" inManagedObjectContext:self.context];
+    
+    // Set the Link's urlString from the RSSItem
+    [obj setValue:item.link forKey:@"urlString"];
+    
+    // immediately save the changes
+    [self.context save:nil];
+}
+
+- (BOOL)hasItemBeenRead:(RSSItem *)item
+{
+    // Create a request to fetch all Link's with the same urlString as this item's link
+    NSFetchRequest *request = [[NSFetchRequest alloc] initWithEntityName:@"Link"];
+    
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"urlString like %@", item.link];
+    [request setPredicate:pred];
+    
+    // If there is at least 1 Link, then this item has been read before
+    NSArray *entities = [self.context executeFetchRequest:request error:nil];
+    if ([entities count] > 0) {
+        return YES;
+    }
+    
+    // If Core Data has never seen this link, then it hasn't been read
+    return NO;
 }
 
 
